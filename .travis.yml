@@ -1,7 +1,7 @@
 language: ruby
 rvm:
-  - 2.2.0
+- 2.2.0
 sudo: false
 notifications:
   slack:
-    secure: ZJImk1un5FpOZblbdOHffjpahRiX4Wpuma1IrTIlT6bFE/OHTZcrHW5rMCaFCGHjqrSXkkXm5TMnbDk/73HeciOiqf3V9aCKDTgK4kqQzO+pqPiBBqGVHRlK5FyR32GysbxjV5o3506rtez/sxS69efn8jHLlvX3WENE8yiJhR8=
+    secure: lPIJLWqB2OsX4I4iVN7j+MG/Sp2Ztw03Lx11vKVi7u+aATo9UsGs2C8Av5aP8vIYnRycazYsD+Zr3z79UKOO8yXaGltWlp77bFjomiRn0F0CLjt5I1rj/pE/TG/MNHRJdod3NXTAlo59ObROiX45kjyeUWGPj000MYNlLbnEg1w=
