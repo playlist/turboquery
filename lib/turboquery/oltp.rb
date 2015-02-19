@@ -34,6 +34,7 @@ class Turboquery::OLTP < Turboquery::Connection
 
   class AROLTP < ActiveRecord::Base
     def self.connect
+      return unless Turboquery.oltp_database_url
       establish_connection Turboquery::DatabaseUrl.new(Turboquery.oltp_database_url).to_hash
     end
   end

@@ -47,6 +47,7 @@ class Turboquery::OLAP < Turboquery::Connection
 
   class AROLAP < ActiveRecord::Base
     def self.connect
+      return unless Turboquery.olap_database_url
       establish_connection Turboquery::DatabaseUrl.new(Turboquery.olap_database_url).to_hash
     end
   end
