@@ -53,15 +53,35 @@ module Turboquery
       olap.after_fork
       oltp.after_fork
     end
-  end
 
-  self.oltp_database_url = ENV['TURBOQUERY_OLTP_DATABASE_URL']
-  self.olap_database_url = ENV['TURBOQUERY_OLAP_DATABASE_URL']
-  self.aws_key = ENV['TURBOQUERY_AWS_KEY']
-  self.aws_secret = ENV['TURBOQUERY_AWS_SECRET']
-  self.aws_bucket = ENV['TURBOQUERY_AWS_BUCKET']
-  self.aws_region = ENV['TURBOQUERY_AWS_REGION'] || 'us-east-1'
-  self.tmp_path = ENV['TURBOQUERY_TMP_PATH']
+    def oltp_database_url
+      @oltp_database_url || ENV['TURBOQUERY_OLTP_DATABASE_URL']
+    end
+
+    def olap_database_url
+      @olap_database_url || ENV['TURBOQUERY_OLAP_DATABASE_URL']
+    end
+
+    def aws_key
+      @aws_key || ENV['TURBOQUERY_AWS_KEY']
+    end
+
+    def aws_secret
+      @aws_secret || ENV['TURBOQUERY_AWS_SECRET']
+    end
+
+    def aws_bucket
+      @aws_bucket || ENV['TURBOQUERY_AWS_BUCKET']
+    end
+
+    def aws_region
+      @aws_region || ENV['TURBOQUERY_AWS_REGION'] || 'us-east-1'
+    end
+
+    def tmp_path
+      @tmp_path || ENV['TURBOQUERY_TMP_PATH']
+    end
+  end
 
   oltp.after_fork if oltp_database_url
   olap.after_fork if olap_database_url
