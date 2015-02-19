@@ -5,12 +5,12 @@ class Turboquery::OLAP < Turboquery::Connection
 
   def copy_result_to_s3(query)
     key = random_key
-    execute("UNLOAD ('#{query}') TO 's3://#{Turboquery.s3_config['bucket']}/#{key}' #{copy_options};")
+    execute("UNLOAD ('#{query}') TO 's3://#{Turboquery.aws_bucket}/#{key}' #{copy_options};")
     key
   end
 
   def copy_s3_to_table(key, table)
-    execute("COPY #{table} FROM 's3://#{Turboquery.s3_config['bucket']}/#{key}manifest' #{copy_options}
+    execute("COPY #{table} FROM 's3://#{Turboquery.aws_bucket}/#{key}manifest' #{copy_options}
     DATEFORMAT 'auto' TIMEFORMAT 'auto';")
   end
 
@@ -27,13 +27,13 @@ class Turboquery::OLAP < Turboquery::Connection
   end
 
   def self.after_fork
-    ARRedshift.reconnect
+    AROLAP.reconnect
   end
 
   protected
 
   def connection
-    ARRedshift.connection
+    AROLAP.connection
   end
 
   def excape_single_quotes(str)
@@ -41,15 +41,15 @@ class Turboquery::OLAP < Turboquery::Connection
   end
 
   def copy_options
-    "CREDENTIALS 'aws_access_key_id=#{Turboquery.s3_config['access_key_id']};aws_secret_access_key=#{Turboquery.s3_config['secret_access_key']}'
+    "CREDENTIALS 'aws_access_key_id=#{Turboquery.aws_key};aws_secret_access_key=#{Turboquery.aws_secret}'
      MANIFEST DELIMITER '\\t' NULL AS '\\\\N'"
   end
 
-  class ARRedshift < ActiveRecord::Base
-    establish_connection DatabaseUrl.new(ENV['REDSHIFT_DATABASE_URL']).to_hash
+  class AROLAP < ActiveRecord::Base
+    establish_connection DatabaseUrl.new(Turboquery.olap_database_url).to_hash
 
     def self.reconnect
-      establish_connection DatabaseUrl.new(ENV['REDSHIFT_DATABASE_URL']).to_hash
+      establish_connection DatabaseUrl.new(Turboquery.olap_database_url).to_hash
     end
   end
 end

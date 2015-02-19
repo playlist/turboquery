@@ -98,10 +98,6 @@ class Turboquery::Connection
     object.upload_file(filename)
   end
 
-  class AR < ActiveRecord::Base
-    self.abstract_class = true
-  end
-
   module PsqlEnv
     def self.set(config)
       host(config)     if config[:host]

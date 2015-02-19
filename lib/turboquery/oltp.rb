@@ -21,4 +21,22 @@ class Turboquery::OLTP < Turboquery::Connection
     command = "cat #{Shellwords.escape(path)} | psql -c #{Shellwords.escape(sql)} #{Shellwords.escape(config[:database])}"
     Kernel.system(command)
   end
+
+  def self.after_fork
+    AROLTP.reconnect
+  end
+
+  protected
+
+  def connection
+    AROLTP.connection
+  end
+
+  class AROLTP < ActiveRecord::Base
+    establish_connection DatabaseUrl.new(Turboquery.oltp_database_url).to_hash
+
+    def self.reconnect
+      establish_connection DatabaseUrl.new(Turboquery.oltp_database_url).to_hash
+    end
+  end
 end
