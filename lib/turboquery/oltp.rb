@@ -23,7 +23,7 @@ class Turboquery::OLTP < Turboquery::Connection
   end
 
   def self.after_fork
-    AROLTP.reconnect
+    AROLTP.connect
   end
 
   protected
@@ -33,10 +33,8 @@ class Turboquery::OLTP < Turboquery::Connection
   end
 
   class AROLTP < ActiveRecord::Base
-    establish_connection DatabaseUrl.new(Turboquery.oltp_database_url).to_hash
-
-    def self.reconnect
-      establish_connection DatabaseUrl.new(Turboquery.oltp_database_url).to_hash
+    def self.connect
+      establish_connection Turboquery::DatabaseUrl.new(Turboquery.oltp_database_url).to_hash
     end
   end
 end

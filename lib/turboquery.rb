@@ -1,6 +1,9 @@
 require 'active_record'
 require 'pg_query'
 
+module Turboquery
+end
+
 require 'turboquery/database_url'
 require 'turboquery/connection'
 require 'turboquery/oltp'
@@ -58,4 +61,12 @@ module Turboquery
   self.aws_bucket = ENV['TURBOQUERY_AWS_BUCKET']
   self.aws_region = ENV['TURBOQUERY_AWS_REGION'] || 'us-east-1'
   self.tmp_path = ENV['TURBOQUERY_TMP_PATH']
+
+  oltp.after_fork if oltp_database_url
+  olap.after_fork if olap_database_url
+
+  def self.config
+    yield self
+    after_fork
+  end
 end

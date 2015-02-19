@@ -27,7 +27,7 @@ class Turboquery::OLAP < Turboquery::Connection
   end
 
   def self.after_fork
-    AROLAP.reconnect
+    AROLAP.connect
   end
 
   protected
@@ -46,10 +46,8 @@ class Turboquery::OLAP < Turboquery::Connection
   end
 
   class AROLAP < ActiveRecord::Base
-    establish_connection DatabaseUrl.new(Turboquery.olap_database_url).to_hash
-
-    def self.reconnect
-      establish_connection DatabaseUrl.new(Turboquery.olap_database_url).to_hash
+    def self.connect
+      establish_connection Turboquery::DatabaseUrl.new(Turboquery.olap_database_url).to_hash
     end
   end
 end
