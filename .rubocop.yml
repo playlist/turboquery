@@ -1,0 +1,35 @@
+# Disable for db/schema.rb
+AllCops:
+  Exclude:
+    - db/**/*
+
+# Disable requirement for documentation
+Documentation:
+  Enabled: false
+
+# Allow extra lines around class body
+EmptyLinesAroundClassBody:
+  Enabled: false
+
+# Allow extra lines around module body
+EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Allow extra lines inside block body
+EmptyLinesAroundBlockBody:
+  Enabled: false
+
+# Use single quotes unless necessary
+StringLiterals:
+  EnforcedStyle: single_quotes
+
+# Only treat is_ as a predicate name
+PredicateName:
+  NamePrefixBlacklist:
+    - is_
+
+LineLength:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
