@@ -1,7 +1,7 @@
 require 'active_record'
 require 'pg_query'
 require 'aws-sdk'
-require 'activerecord4-redshift-adapter'
+require 'active_record/connection_adapters/redshift_adapter'
 require 'pg'
 
 module Turboquery
