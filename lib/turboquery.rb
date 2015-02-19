@@ -1,5 +1,6 @@
 require 'active_record'
 require 'pg_query'
+require 'aws-sdk'
 
 module Turboquery
 end
